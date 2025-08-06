@@ -15,7 +15,8 @@ import subprocess
 import shlex
 import psutil
 
-workspace_folder = "/home/shared_folder/dev_ws"
+workspace_folder = "/home/shared_folder/presentation/dev_ws"
+
 robot_ip = "172.16.40.20"
 
 class ModeSwitcher(Node):
@@ -51,7 +52,7 @@ class ModeSwitcher(Node):
         # Kill the current process based on the mode
         self.get_logger().info("Current mode: " + mode)
         if mode == "MODE-MANUAL":
-            self.kill_processes_by_name(self.moveit_process)
+            # self.kill_processes_by_name(self.moveit_process)
             self.start_driver_process()
             if self.process_exist == False:
                 self.run_in_current_terminal("ros2 service call /xarm/motion_enable xarm_msgs/srv/SetInt16ById '{id: 8, data: 1}'")
@@ -64,6 +65,7 @@ class ModeSwitcher(Node):
                 self.get_logger().warn("A similar process is already running")
                 
         elif mode == "MODE-MOVEIT":
+            self.kill_processes_by_name(self.moveit_process)
             self.kill_processes_by_name(self.driver_process)
             self.start_moveit_process()
             if self.process_exist == False:
