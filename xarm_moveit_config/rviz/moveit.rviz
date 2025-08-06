@@ -235,16 +235,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        wall_plane_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: false
-        wall_plane_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: false
         world:
           Alpha: 1
           Show Axes: false
@@ -351,16 +341,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         table_plane:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wall_plane_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wall_plane_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -491,16 +471,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          wall_plane_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: false
-          wall_plane_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: false
           world:
             Alpha: 1
             Show Axes: false
@@ -566,10 +536,6 @@ Visualization Manager:
           Value: false
         table_plane:
           Value: false
-        wall_plane_1:
-          Value: false
-        wall_plane_2:
-          Value: false
         world:
           Value: false
         xarm_gripper_base_link:
@@ -604,10 +570,6 @@ Visualization Manager:
                                 right_finger:
                                   {}
           table_plane:
-            {}
-          wall_plane_1:
-            {}
-          wall_plane_2:
             {}
       Update Interval: 0
       Value: true
