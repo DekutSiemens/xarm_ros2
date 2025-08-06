@@ -10,7 +10,7 @@ import tty
 import os
 import signal
 
-workspace_folder = "/home/shared_folder/dev_ws"
+workspace_folder = "/home/shared_folder/presentation/dev_ws"
 
 class KeyboardController:
     def __init__(self):
@@ -29,57 +29,19 @@ class KeyboardController:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
     
-    def start_recording(self):
-        """Start the data recording process"""
-        if self.recording_process is None or self.recording_process.poll() is not None:
-            print("\n Starting data recording...")
-            command = f"cd {workspace_folder} && source install/setup.bash && ros2 launch xarm_custom_nodes write_data_to_csv.launch.py"
-            run_in_new_tab(command)
-            self.recording_active = True
-            print(" Data recording started! Press 's' to stop.")
-        else:
-            print("\n  Recording is already active!")
-    
-    def stop_recording(self):
-        """Stop the data recording process"""
-
-        kill_processes_by_name("ros2 launch xarm_custom_nodes write_data_to_csv.launch.py")
-        if self.recording_process and self.recording_process.poll() is None:
-            print("\n Stopping data recording...")
-            try:
-                kill_processes_by_name("ros2 launch xarm_custom_nodes write_data_to_csv.launch.py")
-            except subprocess.TimeoutExpired:
-                print(" Process didn't terminate gracefully, forcing shutdown...")
-                os.killpg(os.getpgid(self.recording_process.pid), signal.SIGKILL)
-            except ProcessLookupError:
-                pass  # Process already terminated
-            
-            self.recording_active = False
-            self.recording_process = None
-            print(" Data recording stopped!")
-        else:
-            print("\n No active recording to stop!")
-    
     def keyboard_listener(self):
         """Listen for keyboard input in a separate thread"""
         print("\n" + "="*50)
         print("   KEYBOARD CONTROLS:")
-        print("   Press 'w' to START data recording")
-        print("   Press 's' to STOP data recording")
         print("   Press 'q' to QUIT the program")
         print("="*50)
         
         while True:
             try:
                 char = self.get_char().lower()
-                
-                if char == 'w':
-                    self.start_recording()
-                elif char == 's':
-                    self.stop_recording()
-                elif char == 'q':
+            
+                if char == 'q':
                     print("\n Exiting program...")
-                    self.stop_recording()  # Stop recording if active
                     kill_all()
                     break
                 elif char == '\x03':  # Ctrl+C
